@@ -1,6 +1,6 @@
-﻿# Technical SEO review — 9 November 2026
+# Technical SEO review — 9 November 2026
 
-Theme release: 1.2.7. Scope: theme source plus a read-only crawl of https://eza.al/rzzdemo/. This is not a deployment to that server or an indexing/ranking guarantee.
+Theme release: 1.2.8. Scope: theme source plus a read-only crawl of https://eza.al/rzzdemo/. This is not a deployment to that server or an indexing/ranking guarantee.
 
 ## Verified
 
@@ -8,7 +8,7 @@ Theme release: 1.2.7. Scope: theme source plus a read-only crawl of https://eza.
 - 78 distinct internal navigation/image/CSS/JavaScript URLs returned successful HTTP responses. External destinations and every srcset candidate were not exhaustively tested.
 - An invented URL returns HTTP 404. /insights/page/2/ correctly returns 404 with only one article currently published. Pagination behavior with multiple pages is covered by an isolated regression fixture, not by a populated live archive.
 - WordPress XML sitemap returns HTTP 200 and includes pages, articles, expertise and team. robots.txt belongs at the domain root: /rzzdemo/robots.txt is not the site's robots endpoint.
-- All theme PHP passes syntax checks. `php -n tests/seo-smoke.php` passes 41 checks for canonical URLs, breadcrumb context/markup, descriptions, JSON-LD, demo versus production indexing and Yoast output ownership. These are isolated fixtures, not a full WordPress integration test.
+- All theme PHP passes syntax checks. `php -n tests/seo-smoke.php` passes 38 checks for canonical URLs, breadcrumb context/markup, descriptions, JSON-LD, dashboard-controlled indexing and Yoast output ownership. These are isolated fixtures, not a full WordPress integration test.
 - Server-rendered navigation/content, labeled navigation and forms, native article/time/address elements, skip navigation, SVG icons with accessible parent controls, responsive image sizes, image dimensions, local fonts with font-display:swap and deferred theme scripts are present.
 
 ## Corrected in this release
@@ -18,8 +18,8 @@ Theme release: 1.2.7. Scope: theme source plus a read-only crawl of https://eza.
 - Team and Expertise directories have a complete heading hierarchy. Profile directory is labeled navigation. Articles reference their page heading.
 - Empty Contact/taxonomy descriptions receive useful fallback text.
 - Native schema now includes connected WebSite/WebPage nodes and Article image/publisher details. No invented ratings, awards, FAQs or completed cases are declared.
-- Local, development and staging environments, .local/localhost addresses and specifically eza.al/rzzdemo receive noindex (including an HTTP X-Robots-Tag header). This rule does not apply to rzzlaw.com with WordPress environment set to production. HTTP/cache rules on the server can independently override indexing and must still be checked after migration.
-- Yoast activation suppresses all native SEO title overrides, description/canonical/social metadata and JSON-LD. It retains theme HTML breadcrumbs and preview protection. Previous native SEO custom-field values are not automatically imported into Yoast.
+- Search engine visibility is controlled through WordPress Settings > Reading and the SEO plugin. The theme has no domain/environment-based noindex rule and sends no custom X-Robots-Tag header. Search results and 404 pages remain noindexed.
+- Yoast activation suppresses all native SEO title overrides, description/canonical/social metadata and JSON-LD. It retains theme HTML breadcrumbs and the WordPress privacy setting. Previous native SEO custom-field values are not automatically imported into Yoast.
 
 ## Production handoff
 

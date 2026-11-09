@@ -6,18 +6,8 @@ function rzz_canonical_url(){
     if(is_front_page())return home_url('/');
     return get_pagenum_link(max(1,(int)get_query_var('paged')),false);
 }
-function rzz_is_preview_site(){
-    $environment=wp_get_environment_type();
-    $host=(string)wp_parse_url(home_url('/'),PHP_URL_HOST);
-    $path=(string)wp_parse_url(home_url('/'),PHP_URL_PATH);
-    $preview=in_array($environment,['local','development','staging'],true)
-        ||in_array($host,['localhost','127.0.0.1'],true)||substr($host,-6)==='.local'
-        ||($host==='eza.al'&&preg_match('~^/rzzdemo(?:/|$)~',$path));
-    return (bool)apply_filters('rzz_is_preview_site',$preview);
-}
-add_action('send_headers',function(){if(rzz_is_preview_site())header('X-Robots-Tag: noindex, nofollow',true);});
 add_filter('wp_robots',function($robots){
-    if(is_search()||is_404()||rzz_is_preview_site()){unset($robots['index']);$robots['noindex']=true;}
+    if(is_search()||is_404()){unset($robots['index']);$robots['noindex']=true;}
     return $robots;
 });
 function rzz_seo_description(){

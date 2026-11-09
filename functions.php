@@ -1,6 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit;
-define('RZZ_VERSION','1.2.7');
+define('RZZ_VERSION','1.2.8');
 foreach (['faq','about-sections','setup','photo-catalog','editorial-images','photo-metadata','content','customizer','fields','seo','contact','upgrade'] as $module) require get_template_directory().'/inc/'.$module.'.php';
 function rzz_setting($key,$fallback=''){return get_theme_mod('rzz_'.$key,$fallback);}
 function rzz_text($key,$fallback=''){echo esc_html(rzz_setting($key,$fallback));}

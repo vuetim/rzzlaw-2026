@@ -58,15 +58,6 @@ function check($condition,$label){global $checks;if(!$condition)throw new Except
 $context=['paged'=>3];check(rzz_canonical_url()==='https://rzzlaw.com/insights/page/3/','Pagination self canonical');
 $context=['front'=>true];check(rzz_canonical_url()==='https://rzzlaw.com/','Home canonical');
 $context=['singular'=>'post','canonical'=>'https://rzzlaw.com/test/2/'];check(rzz_canonical_url()===$context['canonical'],'Multipage article canonical');
-foreach([
- ['base'=>'https://eza.al/rzzdemo','expected'=>true],
- ['base'=>'https://eza.al/rzzdemo/','expected'=>true],
- ['base'=>'https://eza.al/rzzdemo-other','expected'=>false],
- ['base'=>'https://rzzlaw.local','expected'=>true],
- ['base'=>'https://rzzlaw.com','expected'=>false],
- ['base'=>'https://www.rzzlaw.com','expected'=>false],
- ['base'=>'https://rzzlaw.com','env'=>'staging','expected'=>true],
-] as $case){$context=$case;check(rzz_is_preview_site()===$case['expected'],'Preview detection '.$case['base']);}
 $context=['home'=>true];check(rzz_page_label()==='Insights','Blog label uses queried context');
 $context=['category'=>true];check(rzz_page_label()==='Category: Legal Updates','Taxonomy label');
 $context=['singular'=>'post'];$crumbs=rzz_breadcrumb_items();check($crumbs[1]['name']==='Insights','Article Insights parent');
@@ -85,8 +76,10 @@ foreach([['front'=>true],['home'=>true],['singular'=>'post'],['singular'=>'team'
  check(json_last_error()===JSON_ERROR_NONE&&count($data['@graph'])>=4,'Valid JSON graph');
  if(is_singular('post')){$article=array_values(array_filter($data['@graph'],fn($n)=>$n['@type']==='Article'))[0];check(isset($article['image'],$article['publisher']),'Article image and publisher');}
 }
-$context=['base'=>'https://eza.al/rzzdemo'];$robots=['index'=>true];foreach($hooks['wp_robots'] as $cb)$robots=$cb($robots);check(isset($robots['noindex'])&&!isset($robots['index']),'Preview noindex');
-$context=['base'=>'https://rzzlaw.com'];$robots=[];foreach($hooks['wp_robots'] as $cb)$robots=$cb($robots);check(!isset($robots['noindex']),'Production not noindexed by theme');
+foreach(['https://eza.al/rzzdemo','https://rzzlaw.local','https://rzzlaw.com'] as $base){
+ $context=['base'=>$base];$robots=[];foreach($hooks['wp_robots'] as $cb)$robots=$cb($robots);check(!isset($robots['noindex']),'No automatic domain noindex: '.$base);
+ $robots=['noindex'=>true,'nofollow'=>true];foreach($hooks['wp_robots'] as $cb)$robots=$cb($robots);check(isset($robots['noindex'],$robots['nofollow']),'Dashboard privacy setting retained');
+}
 define('WPSEO_VERSION','test');ob_start();foreach($hooks['wp_head'] as $cb)$cb();$head=ob_get_clean();check($head==='','Yoast owns all SEO head metadata');
 foreach($hooks['pre_get_document_title'] as $cb)check($cb('Yoast title')==='Yoast title','Yoast title retained');
 echo 'PASS '.$checks." SEO regression checks\n";
