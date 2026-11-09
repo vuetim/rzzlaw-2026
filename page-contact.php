@@ -1,0 +1,1 @@
+<?php get_header(); ?><main id="primary"><?php rzz_intro('Contact us','Start a conversation with RZZ LAW.');get_template_part('template-parts/contact');get_template_part('template-parts/map'); ?></main><?php get_footer(); ?>

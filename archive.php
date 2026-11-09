@@ -1,0 +1,1 @@
+<?php get_header(); ?><main id="primary"><?php rzz_intro(wp_strip_all_tags(get_the_archive_title()));get_template_part('template-parts/post-list'); ?></main><?php get_footer(); ?>

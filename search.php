@@ -1,0 +1,1 @@
+<?php get_header(); ?><main id="primary"><?php rzz_intro('Search results','Results for: '.get_search_query()); ?><div class="container section"><?php get_search_form(); ?></div><?php get_template_part('template-parts/post-list'); ?></main><?php get_footer(); ?>

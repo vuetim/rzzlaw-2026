@@ -1,0 +1,1 @@
+<form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>"><label>Search expertise, people and insights<input type="search" name="s" value="<?php echo get_search_query(); ?>" required placeholder="Type your search…"></label><button class="button" type="submit">Search <?php echo rzz_arrow(); ?></button></form>

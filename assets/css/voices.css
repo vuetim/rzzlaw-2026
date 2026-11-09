@@ -1,0 +1,79 @@
+.voices-section {
+  border-bottom:1px solid var(--line);
+  padding-block:35px;
+  background:var(--deep)
+}
+.voices-layout {
+  display:grid;
+  grid-template-columns:24% 1fr;
+  gap:30px
+}
+.voice {
+  position:relative;
+  margin:0;
+  padding-left:65px;
+  max-width:850px
+}
+.quote-mark {
+  position:absolute;
+  top:-18px;
+  left:0;
+  font:80px/1 Georgia,serif
+}
+.voice blockquote {
+  font-size:18px;
+  font-style:italic;
+  margin:0 0 18px
+}
+.voice blockquote p {
+  margin:0
+}
+.voice figcaption {
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.13em
+}
+.voice figcaption small {
+  display:block;
+  font-size:10px;
+  margin-top:4px
+}
+.voice-empty {
+  font-size:23px;
+  max-width:710px;
+  margin:0;
+  font-weight:300
+}
+.voices-section .carousel-controls {
+  margin-top:10px
+}
+.voices-section .carousel-controls button {
+  border-radius:50%
+}
+@media(max-width:600px) {
+  .voices-layout {
+  display:block
+}
+.voices-layout>.eyebrow {
+  margin-bottom:25px
+}
+.voice {
+  padding:45px 10px 0;
+  text-align:center
+}
+.quote-mark {
+  left:calc(50% - 16px);
+  top:-12px;
+  font-size:70px
+}
+.voice blockquote {
+  font-size:17px
+}
+.voice-empty {
+  font-size:21px
+}
+.voices-section .carousel-controls {
+  margin-top:24px
+}
+
+}

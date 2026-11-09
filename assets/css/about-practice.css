@@ -1,0 +1,3 @@
+.about-practice { background:var(--primary); }
+.about-practice .principle-card { border-color:var(--line); }
+.about-practice .principle-marker { font-family:Soehne,Arial,sans-serif; letter-spacing:.05em; }

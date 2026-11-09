@@ -1,0 +1,12 @@
+.story-section { padding:65px 0; border-top:1px solid #1d3d3420; }
+.story-layout { display:grid; grid-template-columns:1fr 2fr; gap:70px; align-items:start; }
+.story-heading { position:sticky; top:40px; }
+.story-heading>.brand-dots { gap:12px; margin-bottom:35px; }
+.story-heading>.brand-dots i { width:9px; height:9px; }
+.story-heading h2 { font-size:32px; }
+.story-copy { max-width:760px; font-size:13px; line-height:1.95; }
+.story-copy p { margin-bottom:1.8em; }
+.story-opening { font-size:clamp(20px,2vw,28px); line-height:1.55; letter-spacing:-.025em; }
+.story-ending { font-size:28px; margin-bottom:0!important; }
+.story-section.pattern:before { background-image:radial-gradient(circle,#1d3d341f 1.5px,transparent 2px); opacity:.4; }
+@media(max-width:700px) { .story-section { padding:40px 0; } .story-layout { grid-template-columns:1fr; gap:24px; } .story-heading { position:static; } .story-heading>.brand-dots { margin-bottom:22px; gap:8px; } .story-heading>.brand-dots i { width:6px; height:6px; } .story-copy { font-size:12px; line-height:1.9; } }

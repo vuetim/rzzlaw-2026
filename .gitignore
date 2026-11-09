@@ -1,0 +1,9 @@
+# Local tools and build outputs
+*.zip
+node_modules/
+vendor/
+.env
+.env.*
+.deploy/
+.DS_Store
+Thumbs.db

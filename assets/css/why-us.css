@@ -1,0 +1,115 @@
+.why-section {
+  display:grid;
+  grid-template-columns:36% 64%;
+  border-block:1px solid #ffffff28
+}
+.why-image img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  min-height:360px
+}
+.why-content {
+  padding:40px clamp(32px,4.5vw,80px);
+  background:var(--deep)
+}
+.why-content h2 {
+  max-width:500px
+}
+.why-content>p:not(.eyebrow) {
+  max-width:600px
+}
+.values {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  padding:0;
+  list-style:none;
+  margin:26px 0
+}
+.values li {
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  gap:12px;
+  text-align:center;
+  padding-inline:16px;
+  font-size:14px;
+  line-height:1.4
+}
+.values li+li {
+  border-left:1px solid var(--line)
+}
+.values svg {
+  width:38px;
+  height:38px
+}
+.why-content>.text-link {
+  font-size:14px
+}
+@media(max-width:900px) {
+  .why-section {
+  grid-template-columns:30% 70%
+}
+.why-content {
+  padding:36px 30px
+}
+.values li {
+  padding-inline:10px;
+  font-size:12px
+}
+
+}
+@media(max-width:600px) {
+  .why-section {
+  display:block;
+  background:var(--paper);
+  color:var(--ink)
+}
+.why-image {
+  display:none
+}
+.why-content {
+  padding:36px 24px;
+  background:var(--paper)
+}
+.values {
+  display:block;
+  margin:20px 0
+}
+.values li {
+  flex-direction:row;
+  text-align:left;
+  padding:6px 0;
+  gap:15px;
+  font-size:15px
+}
+.values li+li {
+  border:0
+}
+.values svg {
+  width:24px;
+  height:24px
+}
+.why-content h2 {
+  max-width:330px
+}
+.why-content:before {
+  display:none
+}
+
+}
+
+/* Give the homepage Why section its own identity, also on mobile. */
+.home .why-section { border-bottom:0; margin-bottom:20px; }
+@media(max-width:600px) {
+ .home .why-section,.home .why-content { background:var(--deep); color:#fff; }
+ .home .why-content { padding:32px 24px 35px; }
+ .home .why-content h2 { font-size:26px; }
+ .home .why-content>p:not(.eyebrow) { font-size:12px; line-height:1.8; }
+ .home .why-content>.text-link { font-size:12px; }
+ .home .why-content:before { display:block; }
+ .home .values li { font-size:12px; }
+}
+
+/* The separating space belongs to the dotted section, not a plain margin. */
+.home .why-section { margin-bottom:0; padding-bottom:20px; background-color:var(--deep); background-image:radial-gradient(circle,rgba(255,255,255,.0525) 1.5px,transparent 2px); background-size:18px 18px; }

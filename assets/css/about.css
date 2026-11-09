@@ -1,0 +1,54 @@
+.about-layout {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center
+}
+.about-layout img {
+  width:100%;
+  aspect-ratio:1.1;
+  object-fit:cover
+}
+.about-values {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  margin-top:65px
+}
+.about-values>div {
+  border-top:1px solid #1d3d3430;
+  padding-top:30px;
+  position:relative
+}
+.about-values .brand-dots {
+  position:absolute;
+  right:5px;
+  top:35px
+}
+.about-values h3 {
+  font-family:Soehne;
+  font-size:25px
+}
+.about-values p {
+  max-width:530px
+}
+@media(max-width:650px) {
+  .about-layout,.about-values {
+  grid-template-columns:1fr;
+  gap:30px
+}
+.about-values {
+  margin-top:35px
+}
+
+}
+
+.about-principles { border-top:1px solid #1d3d3420; }
+.principles-heading { margin-bottom:32px; }
+.principles-heading h2 { font-size:clamp(26px,3vw,38px); margin-bottom:0; }
+.principles-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; list-style:none; margin:0; padding:0; }
+.principle-card { padding-top:24px; border-top:1px solid currentColor; }
+.principle-marker { display:flex; align-items:center; height:40px; margin-bottom:20px; font-size:24px; line-height:1; }
+.principle-card h3 { font-size:17px; line-height:1.5; margin-bottom:14px; }
+.principle-card p { font-size:12px; line-height:1.9; margin:0; max-width:400px; }
+@media(max-width:700px) { .principles-grid { grid-template-columns:1fr; gap:28px; } .principles-heading { margin-bottom:25px; } .principle-card { position:relative; padding:22px 0 0 45px; } .principle-marker { position:absolute; left:0; top:23px; margin:0; height:30px; font-size:21px; } .principle-card h3 { font-size:16px; } }

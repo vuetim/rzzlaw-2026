@@ -1,0 +1,26 @@
+.expertise-section { background:var(--primary); }
+.expertise-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.expertise-card { display:grid; grid-template-columns:30px minmax(0,1fr) 22px; align-items:center; gap:14px; border:1px solid var(--line); border-radius:3px; padding:15px 16px; min-height:70px; transition:background .2s,border-color .2s; }
+.expertise-card:hover { background:#ffffff0c; border-color:#fff; }
+.expertise-card>svg:first-child { width:30px; height:34px; }
+.expertise-card>svg:last-child { width:22px; height:16px; }
+.expertise-card h3 { font-size:12px; font-weight:400; line-height:1.35; margin:0; }
+.expertise-card p { font-size:10px; line-height:1.45; margin:4px 0 0; opacity:.85; }
+.expertise-all { display:flex; justify-content:flex-end; margin-top:20px; font-size:12px; }
+.post-type-archive-expertise .expertise-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.post-type-archive-expertise .expertise-card { min-height:84px; grid-template-columns:38px minmax(0,1fr) 26px; gap:20px; padding:16px 20px; }
+.post-type-archive-expertise .expertise-card h3 { font-size:15px; }
+.post-type-archive-expertise .expertise-card p { font-size:11px; }
+.post-type-archive-expertise .expertise-card>svg:first-child { width:38px; height:40px; }
+@media(min-width:701px) { .home .expertise-card p { display:none; } }
+@media(max-width:1150px) { .expertise-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:700px) {
+ .home .expertise-section .container { width:calc(100% - 24px); }
+ .home .expertise-section .section-heading { padding-inline:8px; }
+ .expertise-grid,.post-type-archive-expertise .expertise-grid { grid-template-columns:1fr; gap:5px; }
+ .expertise-card,.post-type-archive-expertise .expertise-card { grid-template-columns:32px minmax(0,1fr) 24px; gap:16px; min-height:69px; padding:11px 16px; }
+ .expertise-card>svg:first-child,.post-type-archive-expertise .expertise-card>svg:first-child { width:32px; height:35px; }
+ .expertise-card h3,.post-type-archive-expertise .expertise-card h3 { font-size:12px; line-height:1.35; }
+ .expertise-card p,.post-type-archive-expertise .expertise-card p { font-size:10px; line-height:1.4; margin-top:3px; }
+ .expertise-all { padding-inline:8px; margin-top:20px; }
+}

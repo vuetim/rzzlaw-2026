@@ -1,0 +1,9 @@
+.careers-layout { display:grid; grid-template-columns:1.2fr 1fr; gap:65px; align-items:start; }
+.careers-image { width:100%; height:235px; object-fit:cover; margin-bottom:28px; border-radius:4px; }
+.careers-layout h2 { font-size:28px; }
+.careers-layout p,.careers-layout li { font-size:12px; line-height:1.9; }
+.careers-apply { background:var(--primary); color:#fff; padding:32px; border-radius:5px; }
+.careers-apply .button { font-size:11px; gap:15px; margin-top:12px; }
+.careers-apply .careers-note { font-size:10px; opacity:.8; margin:22px 0 0; }
+.careers-note a { text-decoration:underline; }
+@media(max-width:700px) { .careers-layout { grid-template-columns:1fr; gap:30px; } .careers-apply { padding:26px; } .careers-image { height:180px; } }

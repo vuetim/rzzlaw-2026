@@ -1,0 +1,1 @@
+<?php get_header(); ?><main id="primary"><?php while(have_posts()):the_post();rzz_intro(get_the_title()); ?><section class="section light"><article class="container prose reading-width"><?php the_content();wp_link_pages(); ?></article></section><?php endwhile; ?></main><?php get_footer(); ?>

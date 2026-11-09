@@ -1,0 +1,1 @@
+<?php get_header(); ?><main id="primary"><?php rzz_intro('Page not found','The page you are looking for may have moved.'); ?><div class="container section"><a class="button" href="<?php echo esc_url(home_url('/')); ?>">Return home <?php echo rzz_arrow(); ?></a><?php get_search_form(); ?></div></main><?php get_footer(); ?>

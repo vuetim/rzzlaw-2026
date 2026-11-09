@@ -1,0 +1,1 @@
+<div class="principles-band light pattern"><div class="container principles-band-grid"><?php foreach(['guides','practice','philosophy'] as $section)get_template_part('template-parts/about/section',null,['section'=>$section]); ?></div></div>

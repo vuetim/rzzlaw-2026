@@ -1,0 +1,1 @@
+<?php get_header(); ?><main id="primary"><?php foreach(['hero','expertise','why','team','voices','faq','contact','map'] as $part)if(rzz_setting('show_'.$part,true))get_template_part('template-parts/home/'.$part); ?></main><?php get_footer(); ?>
