@@ -34,20 +34,3 @@ $copy=[
 'legislative-consulting'=>'Drafting, analysis and advisory on legislative initiatives.'
 ];return $copy[$item->post_name]??$item->post_excerpt;
 }
-
-function rzz_related_expertise($post,$limit=2){
-    $post=get_post($post);if(!$post||$limit<1)return [];
-    [, $defaults]=require get_template_directory().'/inc/service-defaults.php';
-    $raw=implode("\n",rzz_lines(rzz_meta('related',$post->ID)));
-    $slugs=array_values(array_unique(array_filter(array_map('sanitize_title',preg_split('/[\r\n,]+/',$raw)?:[]))));
-    $preferred=$slugs?:explode(',',$defaults[$post->post_name]??'');
-    $items=[];$exclude=[$post->ID];
-    foreach([$preferred,explode(',',$defaults[$post->post_name]??''),[]] as $batch){
-        if(count($items)>=$limit)break;
-        $query=['post_type'=>'expertise','post_status'=>'publish','numberposts'=>$limit-count($items),'post__not_in'=>$exclude,'orderby'=>'menu_order','order'=>'ASC'];
-        $batch=array_values(array_filter($batch));
-        if($batch){$query['post_name__in']=$batch;$query['orderby']='post_name__in';}
-        foreach(get_posts($query) as $item){if(in_array($item->ID,$exclude,true))continue;$items[]=$item;$exclude[]=$item->ID;}
-    }
-    return array_slice($items,0,$limit);
-}

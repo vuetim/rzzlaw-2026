@@ -58,3 +58,11 @@ add_action('admin_init',function(){
     }
     update_option('rzz_multiline_upgrade','1.2.4',false);wp_cache_flush();do_action('litespeed_purge_all');
 });
+
+// Replacing an active theme does not fire after_switch_theme. Purge stale HTML
+// once per version so cached archive/detail pages use the new templates.
+add_action('admin_init',function(){
+    if(!current_user_can('manage_options')||get_stylesheet()!=='rzzlaw'||get_option('rzz_cached_theme_version')===RZZ_VERSION)return;
+    update_option('rzz_cached_theme_version',RZZ_VERSION,false);
+    wp_cache_flush();do_action('litespeed_purge_all');
+},100);

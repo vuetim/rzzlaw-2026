@@ -41,3 +41,5 @@ Version 1.2.1 uses descriptive rzz-law filenames, per-photo titles/alt/descripti
 Clone this repository into wp-content/themes/rzzlaw (keep the folder name rzzlaw), or upload the release/theme ZIP in WordPress. This repository contains theme source and assets only; site content/database and uploads are separate.
 
 Version 1.2.3 standardises contact labels, updates opening hours to Monday–Friday 08:00–16:00, adds a native Go to top link, and uses 13px unrestricted hero descriptions with 12px hero buttons.
+
+Version 1.2.5 renders two fixed photo links on every expertise page. Pair selection is defined in inc/service-defaults.php and is independent of rzz_related metadata, imported IDs and WP_Query results. Images use each linked practiceâ€™s own bundled photo or Customizer override.

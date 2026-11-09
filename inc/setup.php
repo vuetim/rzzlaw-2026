@@ -3,7 +3,7 @@ add_action('after_setup_theme',function(){load_theme_textdomain('rzzlaw',get_tem
 add_action('wp_enqueue_scripts',function(){
 $files=['base','header','footer','cookies','contact','map'];
 if(is_front_page())$files=array_merge($files,['hero','expertise','why-us','team','voices','faq']);
-elseif(is_post_type_archive('expertise')||is_singular('expertise'))$files=array_merge($files,['expertise','service']);
+elseif(is_post_type_archive('expertise')||is_singular('expertise'))$files=array_merge($files,['expertise','service','related-expertise']);
 elseif(is_post_type_archive('team')||is_singular('team'))$files=array_merge($files,['team','profile']);
 elseif(is_page('about'))$files=array_merge($files,['about','story','about-guides','about-practice','about-philosophy']);elseif(is_page('contact'))$files[]='contact-page';elseif(is_page('careers'))$files[]='careers';else $files[]='editorial';
 if(is_post_type_archive(['expertise','team'])||is_singular(['expertise','team','post']))$files=array_merge($files,['about','about-guides','about-practice','about-philosophy','principles-band']);
