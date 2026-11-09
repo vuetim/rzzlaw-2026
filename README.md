@@ -43,3 +43,5 @@ Clone this repository into wp-content/themes/rzzlaw (keep the folder name rzzlaw
 Version 1.2.3 standardises contact labels, updates opening hours to Monday–Friday 08:00–16:00, adds a native Go to top link, and uses 13px unrestricted hero descriptions with 12px hero buttons.
 
 Version 1.2.5 renders two fixed photo links on every expertise page. Pair selection is defined in inc/service-defaults.php and is independent of rzz_related metadata, imported IDs and WP_Query results. Images use each linked practiceâ€™s own bundled photo or Customizer override.
+
+Version 1.2.6 scopes editor fields to their actual template usage. Pages (including Home) expose only fallback SEO fields; these fields and the entire empty Details box disappear when Yoast or another supported SEO plugin is active. Team profiles expose professional details, Expertise exposes service/banner fields, and Posts expose author, practice areas and article-photo fields. Existing metadata is retained. Use Yoast for SEO titles/descriptions and Media Library for shared photo metadata.

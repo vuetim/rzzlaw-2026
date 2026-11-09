@@ -39,3 +39,5 @@ Version 1.2.3: all PHP files passed syntax checks. Isolated shared contact rende
 Version 1.2.4 fixes escaped newlines in imported list fields and guarantees available related expertise with explicit-choice/default/fallback ordering. Tests passed for newline formats, custom related selections, comma lists, missing records, all eight services and sparse content. Check-list markers now use the three vertical brand dots.
 
 Version 1.2.5 replaces the related section with direct photo links from code-defined pairs. Rendering the actual template passed on all eight services and an unknown slug, with get_posts and relationship metadata deliberately unavailable. Each output contained exactly two distinct links and bundled photos. A version-based admin cache purge is included.
+
+Version 1.2.6: editor fields are restricted by content type. Home/Pages have no author, practice links or photo overrides. With Yoast active, the empty page Details metabox and theme SEO fields are hidden. Isolated checks with/without Yoast passed, including metadata retention, title handoff and no duplicate SEO head output. PHP syntax passed.
