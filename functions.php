@@ -1,6 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit;
-define('RZZ_VERSION','1.2.6');
+define('RZZ_VERSION','1.2.7');
 foreach (['faq','about-sections','setup','photo-catalog','editorial-images','photo-metadata','content','customizer','fields','seo','contact','upgrade'] as $module) require get_template_directory().'/inc/'.$module.'.php';
 function rzz_setting($key,$fallback=''){return get_theme_mod('rzz_'.$key,$fallback);}
 function rzz_text($key,$fallback=''){echo esc_html(rzz_setting($key,$fallback));}
@@ -9,13 +9,46 @@ function rzz_link($path){return home_url('/'.trim($path,'/').'/');}
 function rzz_arrow(){return '<svg viewBox="0 0 32 16" fill="none" aria-hidden="true"><path d="M1 8h28M22 1l7 7-7 7" stroke="currentColor" stroke-width="1.3"/></svg>';}
 function rzz_logo(){if(has_custom_logo()){the_custom_logo();}else{echo '<a class="wordmark" href="'.esc_url(home_url('/')).'" aria-label="RZZ LAW home"><span class="brand-dots" aria-hidden="true"><i></i><i></i><i></i></span>RZZ LAW</a>';}}
 function rzz_icon($name){$paths=['corporate-law'=>'M8 30V8h14v22M14 8V3h13v27M3 30h29M11 12h2m4 0h2m-8 5h2m4 0h2m-8 5h2m4 0h2m6-10h2m-2 5h2m-2 5h2M14 30v-5h4v5','contract-law'=>'M7 3h22v28H7zM11 9h14M11 14h14M11 19h14M11 24h14','public-procurement'=>'m8 8 8-6 10 12-8 6zM13 15 3 27l4 4 12-14M22 28h10v4H20v-4','real-estate'=>'m2 10 15-7 15 7-15 7zM4 17l13 7 13-7M4 24l13 7 13-7','finance-law'=>'M3 17c0-5 14-5 14 0v12c0 5-14 5-14 0zM3 17c0 5 14 5 14 0M3 23c0 5 14 5 14 0M18 8c0-5 14-5 14 0v15c0 4-8 5-12 3M18 8c0 5 14 5 14 0M20 16c4 2 12 1 12-2M20 22c4 2 12 1 12-2','insurance-law'=>'m17 2 13 5v10c0 8-13 15-13 15S4 25 4 17V7zM11 16l5 5 8-10','criminal-law'=>'M17 2v29M7 31h20M3 9h28M7 9 1 23h12L7 9Zm20 0-6 14h12L27 9Z','legislative-consulting'=>'M17 7C12 3 5 3 2 5v24c5-2 10-1 15 2 5-3 10-4 15-2V5c-3-2-10-2-15 2Zm0 0v24','search'=>'m23 23 9 9M27 15A12 12 0 1 1 3 15a12 12 0 0 1 24 0Z','fingerprint'=>'M6 15a11 11 0 0 1 22 0M3 11a15 15 0 0 1 28 0M10 20v-5a7 7 0 0 1 14 0v6M14 26V15a3 3 0 0 1 6 0v10M6 20v6m4 0v5m10-1v2m8-11v6m-14 5v-2'];return '<svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'.($paths[$name]??$paths['insurance-law']).'"/></svg>';}
-function rzz_breadcrumb(){echo '<nav class="breadcrumb" aria-label="Breadcrumb"><a href="'.esc_url(home_url('/')).'">Home</a><span>›</span>';if(is_singular(['expertise','team'])){$type=get_post_type();echo '<a href="'.esc_url(get_post_type_archive_link($type)).'">'.esc_html(ucfirst($type)).'</a><span>›</span>';}echo '<span aria-current="page">'.esc_html(is_archive()?post_type_archive_title('',false):(is_search()?'Search':(is_404()?'Page not found':get_the_title()))).'</span></nav>';}
+function rzz_page_label(){
+    if(is_front_page())return 'Home';
+    if(is_home())return 'Insights';
+    if(is_search())return 'Search results';
+    if(is_404())return 'Page not found';
+    if(is_post_type_archive('team'))return 'Our team';
+    if(is_post_type_archive('expertise'))return 'Our expertise';
+    if(is_archive())return wp_strip_all_tags(get_the_archive_title());
+    return get_the_title(get_queried_object_id());
+}
+function rzz_breadcrumb_items(){
+    $items=[['name'=>'Home','url'=>home_url('/')]];
+    if(is_singular(['expertise','team'])){
+        $type=get_post_type();
+        $items[]=['name'=>$type==='team'?'Our team':'Our expertise','url'=>get_post_type_archive_link($type)];
+    }elseif(is_singular('post')){
+        $blog=get_option('page_for_posts');
+        $items[]=['name'=>'Insights','url'=>$blog?get_permalink($blog):rzz_link('insights')];
+    }
+    $items[]=['name'=>rzz_page_label(),'url'=>rzz_canonical_url()];
+    return $items;
+}
+function rzz_breadcrumb(){
+    $items=rzz_breadcrumb_items();
+    echo '<nav class="breadcrumb" aria-label="Breadcrumb"><ol>';
+    foreach($items as $index=>$item){
+        echo '<li>';
+        if($index)echo '<span aria-hidden="true">›</span>';
+        if($index===count($items)-1)echo '<span aria-current="page">'.esc_html($item['name']).'</span>';
+        else echo '<a href="'.esc_url($item['url']).'">'.esc_html($item['name']).'</a>';
+        echo '</li>';
+    }
+    echo '</ol></nav>';
+}
 function rzz_intro($title,$description=''){
     $image=rzz_banner_image();
     ?>
     <section class="page-hero<?php echo $image?' has-editorial-image':''; ?>"<?php if($image): ?> style="--page-hero-image:url('<?php echo esc_url($image); ?>');--page-hero-image-mobile:url('<?php echo esc_url(rzz_banner_image(800)); ?>')"<?php endif; ?>>
         <?php if($image): ?><picture class="page-hero-media"><source media="(max-width:600px)" srcset="<?php echo esc_url(rzz_banner_image(800)); ?>"><img src="<?php echo esc_url($image); ?>" <?php echo rzz_photo_attributes(rzz_current_image_details()); ?> width="1536" height="1024" fetchpriority="high" decoding="async"></picture><?php endif; ?>
-        <div class="container"><?php rzz_breadcrumb(); ?><p class="eyebrow">RZZ LAW · Kosovo</p><h1><?php echo esc_html($title); ?></h1><?php if($description): ?><p class="lead"><?php echo esc_html($description); ?></p><?php endif; ?></div>
+        <div class="container"><?php rzz_breadcrumb(); ?><p class="eyebrow">RZZ LAW · Kosovo</p><h1 id="page-title"><?php echo esc_html($title); ?></h1><?php if($description): ?><p class="lead"><?php echo esc_html($description); ?></p><?php endif; ?></div>
     </section>
     <?php
 }

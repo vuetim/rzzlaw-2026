@@ -240,6 +240,9 @@ h3 {
   text-decoration:underline;
   text-underline-offset:4px
 }
+.breadcrumb ol { display:flex; flex-wrap:wrap; gap:12px; list-style:none; margin:0; padding:0; }
+.breadcrumb li { display:flex; align-items:center; gap:12px; }
+.screen-reader-text { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); clip-path:inset(50%); white-space:nowrap; border:0; }
 .prose {
   font-size:1.08rem;
   line-height:1.8
