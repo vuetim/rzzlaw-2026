@@ -35,3 +35,5 @@ Version 1.2.1: 12 unique descriptive photo metadata records, 24 renamed WebP ass
 Version 1.2.2: Our Team and every remaining interior page banner now use the office/photo set. Original city images are retained only for the home hero. Legacy non-hero image choices are reset on the next administrator request. PHP syntax and isolated banner-selection checks passed.
 
 Version 1.2.3: all PHP files passed syntax checks. Isolated shared contact rendering and one-time hours migration passed; all five labels and SVG icons are present. Hero CSS values and native Go to top target verified. Browser/mobile visual rendering remains unverified.
+
+Version 1.2.4 fixes escaped newlines in imported list fields and guarantees available related expertise with explicit-choice/default/fallback ordering. Tests passed for newline formats, custom related selections, comma lists, missing records, all eight services and sparse content. Check-list markers now use the three vertical brand dots.

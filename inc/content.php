@@ -14,7 +14,7 @@ add_action('init','rzz_register_content');
 function rzz_initial_content(){rzz_register_content();
 [$approaches,$related]=require get_template_directory().'/inc/service-defaults.php';
 foreach(rzz_areas() as $slug=>$area){if(!get_page_by_path($slug,OBJECT,'expertise')){$id=wp_insert_post(['post_type'=>'expertise','post_status'=>'publish','post_title'=>$area[0],'post_name'=>$slug,'post_content'=>$area[3],'post_excerpt'=>$area[1],'menu_order'=>array_search($slug,array_keys(rzz_areas()),true)]);if(!is_wp_error($id)){update_post_meta($id,'rzz_services',str_replace('|',"
-",$area[2]));update_post_meta($id,'rzz_meta_description',$area[1]);update_post_meta($id,'rzz_meta_title',$area[0].' in Kosovo | RZZ LAW');update_post_meta($id,'rzz_approach',$approaches[$slug]);update_post_meta($id,'rzz_related',str_replace(',',"\n",$related[$slug]));}}}
+",$area[2]));update_post_meta($id,'rzz_meta_description',$area[1]);update_post_meta($id,'rzz_meta_title',$area[0].' in Kosovo | RZZ LAW');update_post_meta($id,'rzz_approach',$approaches[$slug]);update_post_meta($id,'rzz_related',str_replace(',',chr(10),$related[$slug]));}}}
 $pages=['home'=>['Home',''],'about'=>['About Us','RZZ LAW is a legal practice based in Kosovo, advising businesses, institutions and individuals. Our approach combines careful legal analysis with a practical understanding of each client’s objectives.'],'contact'=>['Contact Us',''],'insights'=>['Insights',''],'privacy-policy'=>['Privacy Policy','This page is awaiting firm-specific privacy information and review. Please contact the firm for information about how your enquiry and personal data are handled.'],'terms-and-conditions'=>['Terms and Conditions','This page is awaiting firm-specific terms and review. Website information is general and does not replace advice on your particular circumstances. Contacting the firm does not by itself establish an attorney-client relationship.'],'careers'=>['Careers','Interested in joining RZZ LAW? Contact our team to ask about current opportunities.'],'faq'=>['Frequently Asked Questions','']];
 $legal=require get_template_directory().'/inc/legal-defaults.php';
 foreach($pages as $slug=>$data){$existing=get_page_by_path($slug);if(!$existing)$id=wp_insert_post(['post_type'=>'page','post_status'=>in_array($slug,['careers','faq'])?'draft':'publish','post_title'=>$data[0],'post_name'=>$slug,'post_content'=>$legal[$slug]??$data[1]]);else $id=$existing->ID;if($slug==='home'){update_option('page_on_front',$id);update_option('show_on_front','page');}if($slug==='insights')update_option('page_for_posts',$id);if($slug==='privacy-policy'){update_option('wp_page_for_privacy_policy',$id);if(get_post_status($id)==='draft')wp_update_post(['ID'=>$id,'post_status'=>'publish']);}}
@@ -33,4 +33,21 @@ $copy=[
 'criminal-law'=>'Legal defence and representation in criminal matters.',
 'legislative-consulting'=>'Drafting, analysis and advisory on legislative initiatives.'
 ];return $copy[$item->post_name]??$item->post_excerpt;
+}
+
+function rzz_related_expertise($post,$limit=2){
+    $post=get_post($post);if(!$post||$limit<1)return [];
+    [, $defaults]=require get_template_directory().'/inc/service-defaults.php';
+    $raw=implode("\n",rzz_lines(rzz_meta('related',$post->ID)));
+    $slugs=array_values(array_unique(array_filter(array_map('sanitize_title',preg_split('/[\r\n,]+/',$raw)?:[]))));
+    $preferred=$slugs?:explode(',',$defaults[$post->post_name]??'');
+    $items=[];$exclude=[$post->ID];
+    foreach([$preferred,explode(',',$defaults[$post->post_name]??''),[]] as $batch){
+        if(count($items)>=$limit)break;
+        $query=['post_type'=>'expertise','post_status'=>'publish','numberposts'=>$limit-count($items),'post__not_in'=>$exclude,'orderby'=>'menu_order','order'=>'ASC'];
+        $batch=array_values(array_filter($batch));
+        if($batch){$query['post_name__in']=$batch;$query['orderby']='post_name__in';}
+        foreach(get_posts($query) as $item){if(in_array($item->ID,$exclude,true))continue;$items[]=$item;$exclude[]=$item->ID;}
+    }
+    return array_slice($items,0,$limit);
 }

@@ -47,3 +47,14 @@ add_action('admin_init',function(){
     update_option('rzz_contact_hours_upgrade','1.2.3',false);
     wp_cache_flush();do_action('litespeed_purge_all');
 });
+
+add_action('admin_init',function(){
+    if(!current_user_can('manage_options')||get_stylesheet()!=='rzzlaw'||get_option('rzz_multiline_upgrade')==='1.2.4')return;
+    foreach(get_posts(['post_type'=>['expertise','team','post','review'],'post_status'=>['publish','draft','private','pending','future'],'numberposts'=>-1]) as $post){
+        foreach(['related','services','areas','education','career','languages'] as $key){
+            $raw=get_post_meta($post->ID,'rzz_'.$key,true);if(!is_string($raw)||$raw==='')continue;
+            $clean=implode(chr(10),rzz_lines($raw));if($clean!==$raw)update_post_meta($post->ID,'rzz_'.$key,$clean);
+        }
+    }
+    update_option('rzz_multiline_upgrade','1.2.4',false);wp_cache_flush();do_action('litespeed_purge_all');
+});
